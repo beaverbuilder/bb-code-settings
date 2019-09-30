@@ -1,0 +1,4 @@
+#fl-builder-settings-section-bb_css_code .ace_editor,
+#fl-builder-settings-section-bb_js_code .ace_editor {
+	height: 250px !important;
+}
