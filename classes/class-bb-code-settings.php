@@ -21,8 +21,8 @@ final class BB_Code_Settings {
 
 	public static function enqueue_builder_scripts() {
 		if ( FLBuilderModel::is_builder_active() ) {
-			wp_enqueue_style( 'bb-code-settings', BB_CODE_SETTINGS_URL . 'css/settings.css', array( 'fl-builder' ), BB_CODE_SETTINGS_VERSION );
-			wp_enqueue_script( 'bb-code-settings', BB_CODE_SETTINGS_URL . 'js/settings.js', array( 'fl-builder' ), BB_CODE_SETTINGS_VERSION );
+			wp_enqueue_style( 'bb-code-settings', BB_CODE_SETTINGS_URL . 'css/settings.css', array(), BB_CODE_SETTINGS_VERSION );
+			wp_enqueue_script( 'bb-code-settings', BB_CODE_SETTINGS_URL . 'js/settings.js', array(), BB_CODE_SETTINGS_VERSION );
 		}
 	}
 
