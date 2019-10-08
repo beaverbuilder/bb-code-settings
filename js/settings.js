@@ -6,6 +6,11 @@
 
         init: function() {
             FLBuilder.addHook( 'settings-form-init', CodeSettings.settingsFormInit );
+			FLBuilder.addHook( 'didSaveNodeSettingsComplete', CodeSettings.clearPreview );
+        },
+
+        clearPreview: function() {
+			$( 'style.fl-builder-node-preview' ).remove();
         },
 
         settingsFormInit: function() {
@@ -15,6 +20,7 @@
 
             if ( form.length ) {
                 CodeSettings.currentNodeId = form.attr( 'data-node' );
+				form.find( '.fl-builder-settings-cancel' ).on( 'click', CodeSettings.clearPreview );
             }
             if ( ! style.length ) {
                 $( 'head' ).append( '<style class="fl-builder-node-preview"></style>' );
