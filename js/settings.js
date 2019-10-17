@@ -32,12 +32,15 @@
 
         cssChanged: function( e ) {
             var prefix = '.fl-node-' + CodeSettings.currentNodeId;
-            var css = CodeSettings.prefixCssSelectors( $( e.target ).val(), prefix );
+            var css = CSSScoper.scope( $( e.target ).val(), prefix );
             $( 'style.fl-builder-node-preview' ).html( css );
         },
+    }
 
-        prefixCssSelectors: function( rules, className ) {
-            var classLen = className.length, char, nextChar, isAt, isIn;
+	var CSSScoper = {
+
+		scope: function( rules, className ) {
+			var classLen = className.length, char, nextChar, isAt, isIn;
 
             className += ' ';
             rules = rules.replace( /\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+/g, '' );
@@ -77,9 +80,17 @@
                 rules = className + rules;
             }
 
-            return rules;
-        },
-    }
+            return CSSScoper.fixKeyframes( rules, className );
+		},
+
+		fixKeyframes: function( rules, className ) {
+			var toRegex = new RegExp( '\\' + className + '\\s?to\\s?\\{', 'g' );
+			var fromRegex = new RegExp( '\\' + className + '\\s?from\\s?\\{', 'g' );
+			rules = rules.replace( toRegex, 'to {' );
+			rules = rules.replace( fromRegex, 'from {' );
+			return rules;
+		}
+	}
 
     $( CodeSettings.init );
 
