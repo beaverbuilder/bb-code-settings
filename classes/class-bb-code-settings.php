@@ -73,8 +73,8 @@ final class BB_Code_Settings {
 	}
 
 	public static function filter_layout_css( $css, $nodes ) {
-		if ( ! class_exists( 'lessc' ) ) {
-			require_once BB_CODE_SETTINGS_DIR . 'classes/class-lessc.php';
+		if ( ! class_exists( 'ScssPhp\ScssPhp\Compiler' ) ) {
+			require_once BB_CODE_SETTINGS_DIR . 'vendor/scssphp/Compiler.php';
 		}
 
 		$all_nodes = array_merge( $nodes['rows'], $nodes['columns'],  $nodes['modules'] );
@@ -85,8 +85,8 @@ final class BB_Code_Settings {
 					$code = ".fl-node-$node_id {";
 					$code .= $node->settings->bb_css_code;
 					$code .= "}";
-					$less = new lessc;
-					$css .= @$less->compile( $code ); // @codingStandardsIgnoreLine
+					$compiler = new ScssPhp\ScssPhp\Compiler();
+					$css .= $compiler->compile( $code );
 				}
 			}
 		}
