@@ -16,6 +16,7 @@ define( 'BB_CODE_SETTINGS_VERSION', '0.1' );
 define( 'BB_CODE_SETTINGS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BB_CODE_SETTINGS_URL', plugins_url( '/', __FILE__ ) );
 
+require_once 'vendor/autoload.php';
 require_once 'classes/class-bb-code-settings.php';
 
 BB_Code_Settings::init();

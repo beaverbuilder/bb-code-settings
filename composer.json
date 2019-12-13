@@ -1,0 +1,8 @@
+{
+    "name": "bb/code-settings",
+    "type": "project",
+    "license": "GPL 2+",
+    "require": {
+        "scssphp/scssphp": "^1.0"
+    }
+}

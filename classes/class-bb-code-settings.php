@@ -73,10 +73,6 @@ final class BB_Code_Settings {
 	}
 
 	public static function filter_layout_css( $css, $nodes ) {
-		if ( ! class_exists( 'ScssPhp\ScssPhp\Compiler' ) ) {
-			require_once BB_CODE_SETTINGS_DIR . 'vendor/scssphp/Compiler.php';
-		}
-
 		$all_nodes = array_merge( $nodes['rows'], $nodes['columns'],  $nodes['modules'] );
 
 		foreach ( $all_nodes as $node_id => $node ) {
