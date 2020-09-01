@@ -14,9 +14,11 @@ final class BB_Code_Settings {
 		add_action( 'wp_enqueue_scripts', __CLASS__ . '::enqueue_builder_scripts' );
 
 		add_filter( 'fl_builder_register_settings_form', __CLASS__ . '::filter_settings_fields', 10, 2 );
-		add_filter( 'fl_builder_render_css', __CLASS__ . '::filter_layout_css', 10, 2 );
-		add_filter( 'fl_builder_render_js', __CLASS__ . '::filter_layout_js', 10, 2 );
-		add_filter( 'fl_builder_ajax_layout_response', __CLASS__ . '::filter_ajax_layout_js' );
+		if ( ! isset( $_GET['safemode'] ) ) {
+			add_filter( 'fl_builder_render_css', __CLASS__ . '::filter_layout_css', 10, 2 );
+			add_filter( 'fl_builder_render_js', __CLASS__ . '::filter_layout_js', 10, 2 );
+			add_filter( 'fl_builder_ajax_layout_response', __CLASS__ . '::filter_ajax_layout_js' );
+		}
 	}
 
 	public static function enqueue_builder_scripts() {
@@ -82,7 +84,12 @@ final class BB_Code_Settings {
 					$code .= $node->settings->bb_css_code;
 					$code .= "}";
 					$compiler = new ScssPhp\ScssPhp\Compiler();
-					$css .= $compiler->compile( $code );
+					try {
+						$css .= $compiler->compile( $code );
+					} catch ( Exception $e ) {
+						$name = isset( $node->name ) ? $node->name : $node->type;
+						$css .= "\n/*\n!!bb-code-settings compile error!!\nNode: {$node->node}\nType: {$name}\n{$e->getMessage()}\n*/\n";
+					}
 				}
 			}
 		}
