@@ -85,7 +85,7 @@ final class BB_Code_Settings {
 					$code .= "}";
 					$compiler = new ScssPhp\ScssPhp\Compiler();
 					try {
-						$css .= $compiler->compile( $code );
+						$css .= $compiler->compileString( $code )->getCSS();
 					} catch ( Exception $e ) {
 						$name = isset( $node->name ) ? $node->name : $node->type;
 						$css .= "\n/*\n!!bb-code-settings compile error!!\nNode: {$node->node}\nType: {$name}\n{$e->getMessage()}\n*/\n";
